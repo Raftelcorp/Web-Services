@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 @Entity
@@ -13,7 +14,7 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Event {
+public class Event implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,9 +36,9 @@ public class Event {
     @Column(name="url_Img", nullable = false, length = 50)
     private String urlImg;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="owner_id", nullable = false)
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+   @ManyToOne(fetch = FetchType.LAZY)
+   @JoinColumn(name="owner_id", nullable = false)
+   @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Customer ownerId;
 
 

@@ -26,32 +26,35 @@ public class EventsServiceImpl implements IEventsService {
 
 
     @Override
+    @Transactional
     public Event save(Event event) throws Exception {
-        return null;
+        return eventRepository.save(event);
     }
 
     @Override
+    @Transactional
     public void delete(Long id) throws Exception {
+        eventRepository.deleteById(id);
 
     }
 
     @Override
     public List<Event> getAll() throws Exception {
-        return null;
+        return eventRepository.findAll();
     }
 
     @Override
     public Optional<Event> getById(Long id) throws Exception {
-        return Optional.empty();
+        return eventRepository.findById(id);
     }
 
     @Override
     public Event findBytTitle(String title) throws Exception {
-        return null;
+        return eventRepository.findByTitle(title);
     }
 
     @Override
     public Event findByAuthor(String author) throws Exception {
-        return null;
+        return eventRepository.findByAuthor(author);
     }
 }
