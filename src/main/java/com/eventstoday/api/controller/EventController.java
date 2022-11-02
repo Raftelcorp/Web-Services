@@ -5,6 +5,7 @@ import com.eventstoday.api.entities.Event;
 import com.eventstoday.api.service.ICustomersService;
 import com.eventstoday.api.service.IEventsService;
 import com.eventstoday.api.service.ITicketsService;
+import io.swagger.annotations.Api;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +18,7 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/api/events")
+@Api(tags = "Events" , value = "Web service RESTful - Events")
 public class EventController {
 
     private final ICustomersService customersService;
@@ -36,7 +38,6 @@ public class EventController {
         try{
             List<Event> events = eventsService.getAll();
             if(events.size()>0){
-                System.out.println("XDXDXDXDXDX");
                 return new ResponseEntity<>(events, HttpStatus.OK);
             }
 
@@ -61,19 +62,20 @@ public class EventController {
         }
     }
 
-    @PostMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Event> insertEvent( @PathVariable("id") Long id, @Valid @RequestBody Event event){
+    @PostMapping(value = ("/{id}"), consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Event> insertEvent( @PathVariable("id") Long id, @RequestBody Event event){
         try{
             Optional<Customer> customer = customersService.getById(id);
             if(customer.isPresent()){
+                System.out.println("Insert");
+                System.out.println(customer);
                 event.setOwnerId(customer.get());
                 Event newEvent = eventsService.save(event);
-                System.out.println(id);
-                System.out.println("XDXDXDXDXDX");
                 return ResponseEntity.status(HttpStatus.CREATED).body(newEvent);
             }
+
             else
-                return new ResponseEntity<>(HttpStatus.FAILED_DEPENDENCY);
+            return new ResponseEntity<>(HttpStatus.FAILED_DEPENDENCY);
         }catch (Exception ex){
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }

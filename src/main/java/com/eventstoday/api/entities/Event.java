@@ -1,6 +1,7 @@
 package com.eventstoday.api.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -25,21 +26,21 @@ public class Event implements Serializable {
     private String author;
     @Column(name="description", nullable = true, length = 50)
     private String description;
-    @Column(name="price", nullable = false)
-    private Integer  price;
+    @Column(name="price", nullable = true)
+    private String  price;
     @Column(name="start_date", nullable = false)
     @Temporal(TemporalType.DATE)
     private Date startDate;
     @Column(name="end_date", nullable = false)
     @Temporal(TemporalType.DATE)
     private Date endDate;
-    @Column(name="url_Img", nullable = false, length = 50)
+    @Column(name="url_Img", nullable = true, length = 50)
     private String urlImg;
 
    @ManyToOne(fetch = FetchType.LAZY)
    @JoinColumn(name="owner_id", nullable = false)
    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    private Customer ownerId;
+   private Customer ownerId;
 
 
 }

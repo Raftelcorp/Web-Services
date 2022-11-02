@@ -27,7 +27,7 @@ public class Customer {
     @Column(name="email", nullable = false, length = 50)
     private String email;
     @Column(name="age", nullable = false, length = 50)
-    private Integer age;
+    private int age;
     @Column(name="password", nullable = false, length = 25)
     private String password;
 

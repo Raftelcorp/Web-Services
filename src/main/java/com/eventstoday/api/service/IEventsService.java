@@ -7,4 +7,6 @@ public interface IEventsService extends CrudService<Event> {
 
     Event findBytTitle(String title) throws Exception;
     Event findByAuthor(String author) throws Exception;
+
+
 }
