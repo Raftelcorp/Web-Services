@@ -67,4 +67,15 @@ public class CustomerController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Customer> insertCustomer( @RequestBody Customer customer){
+        try{
+                System.out.println("Insert");
+                Customer newCustomer = customersService.save(customer);
+                return ResponseEntity.status(HttpStatus.CREATED).body(newCustomer);
+        }catch (Exception ex){
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }
