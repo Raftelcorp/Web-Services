@@ -57,4 +57,7 @@ public class EventsServiceImpl implements IEventsService {
     public Event findByAuthor(String author) throws Exception {
         return eventRepository.findByAuthor(author);
     }
+
+
+
 }
