@@ -30,6 +30,7 @@ public class CustomersServiceImpl implements ICustomersService {
         customerRepository.deleteById(id);
     }
 
+
     @Override
     public List<Customer> getAll() throws Exception {
         return customerRepository.findAll();

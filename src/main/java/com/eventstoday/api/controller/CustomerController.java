@@ -9,14 +9,19 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.BeanWrapper;
+import org.springframework.beans.BeanWrapperImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import java.beans.FeatureDescriptor;
 import java.util.List;
 import java.util.Optional;
-
+import java.util.stream.Stream;
 
 
 @RestController
@@ -78,4 +83,29 @@ public class CustomerController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @PatchMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Customer> updateCustomer(@PathVariable("id") Long id, @RequestBody Customer customer){
+        try{
+            Optional<Customer> newCustomer = customersService.getById(id);
+            if(!newCustomer.isPresent())
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
+            if (customer.getName() != null) newCustomer.get().setName(customer.getName());
+            if (customer.getEmail() != null) newCustomer.get().setEmail(customer.getEmail());
+            if (customer.getAge() !=  0) newCustomer.get().setAge(customer.getAge());
+            if (customer.getPassword() != null) newCustomer.get().setPassword(customer.getPassword());
+            newCustomer.get().setId(id);
+
+            System.out.println(newCustomer.get());
+            customersService.save(newCustomer.get());
+            return new ResponseEntity<>(customer, HttpStatus.OK);
+        }catch (Exception ex){
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+
+    }
+
+
 }
