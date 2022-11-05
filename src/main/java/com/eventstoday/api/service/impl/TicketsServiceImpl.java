@@ -22,11 +22,13 @@ public class TicketsServiceImpl implements ITicketsService {
     }
 
     @Override
+    @Transactional
     public Ticket save(Ticket ticket) throws Exception {
         return ticketRepository.save(ticket);
     }
 
     @Override
+    @Transactional
     public void delete(Long id) throws Exception {
          ticketRepository.deleteById(id);
     }
