@@ -6,6 +6,9 @@ import com.eventstoday.api.service.ICustomersService;
 import com.eventstoday.api.service.IEventsService;
 import com.eventstoday.api.service.ITicketsService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -33,6 +36,12 @@ public class EventController {
 
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "List Events", notes = "Method for listing all events")
+    @ApiResponses({
+            @ApiResponse(code = 201, message = "Event Found"),
+            @ApiResponse(code = 404, message = "Event not found"),
+            @ApiResponse(code = 501, message = "Internal server error"),
+    })
     public ResponseEntity<List<Event>> findAllEvents(){
 
         try{
