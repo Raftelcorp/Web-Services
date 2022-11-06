@@ -34,7 +34,7 @@ public class Event implements Serializable {
     @Column(name="end_date", nullable = false)
     @Temporal(TemporalType.DATE)
     private Date endDate;
-    @Column(name="url_Img", nullable = true, length = 50)
+    @Column(name="url_Img", nullable = true, length = 1337)
     private String urlImg;
 
    @ManyToOne(fetch = FetchType.LAZY)
