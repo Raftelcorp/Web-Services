@@ -1,6 +1,7 @@
 package com.eventstoday.api.service;
 
 import com.eventstoday.api.entities.Customer;
+import com.eventstoday.api.service.CrudService;
 
 import java.util.List;
 

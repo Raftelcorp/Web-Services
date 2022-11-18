@@ -99,4 +99,29 @@ public class TicketController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @DeleteMapping(value = "/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Delete ticket by id",notes = "method for delete ticket")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Ticket delete"),
+            @ApiResponse(code=404, message = "Ticket Not Found"),
+            @ApiResponse(code= 501, message = "Internal Server Error")
+    })
+    public ResponseEntity<Ticket> deleteTicket(@PathVariable("id") Long ticketId){
+        System.out.println("Try");
+        try{
+            Optional<Ticket> ticketDelete=ticketsService.getById(ticketId);
+            if(ticketDelete.isPresent()){
+                System.out.println("Delete ticket");
+                ticketsService.delete(ticketId);
+                return new ResponseEntity<>(HttpStatus.OK);
+            }
+            else{
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+        }catch (Exception ex){
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 }

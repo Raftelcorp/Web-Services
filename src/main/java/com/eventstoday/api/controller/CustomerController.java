@@ -1,7 +1,6 @@
 package com.eventstoday.api.controller;
 
 import com.eventstoday.api.entities.Customer;
-import com.eventstoday.api.entities.Event;
 import com.eventstoday.api.service.ICustomersService;
 import com.eventstoday.api.service.IEventsService;
 import com.eventstoday.api.service.ITicketsService;
@@ -14,8 +13,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
-import java.beans.FeatureDescriptor;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,13 +23,18 @@ import java.util.Optional;
 public class CustomerController {
 
     private final ICustomersService customersService;
-    private final IEventsService eventsService;
-    private final ITicketsService ticketsService;
+   // private final IEventsService eventsService;
+   // private final ITicketsService ticketsService;
 
-    public CustomerController(ICustomersService customersService, IEventsService eventsService, ITicketsService ticketsService) {
-        this.eventsService = eventsService;
+  //  public CustomerController(ICustomersService customersService, IEventsService eventsService, ITicketsService ticketsService) {
+        //  this.eventsService = eventsService;
+      //  this.customersService = customersService;
+       // this.ticketsService = ticketsService;
+  //  }
+    public CustomerController(ICustomersService customersService) {
+
         this.customersService = customersService;
-        this.ticketsService = ticketsService;
+
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)

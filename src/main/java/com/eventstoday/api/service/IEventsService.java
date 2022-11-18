@@ -1,7 +1,7 @@
 package com.eventstoday.api.service;
 
-import com.eventstoday.api.entities.Customer;
 import com.eventstoday.api.entities.Event;
+import com.eventstoday.api.service.CrudService;
 
 public interface IEventsService extends CrudService<Event> {
 

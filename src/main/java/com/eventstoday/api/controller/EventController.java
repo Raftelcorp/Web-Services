@@ -17,8 +17,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
-import javax.validation.Valid;
-
 @RestController
 @RequestMapping("/api/events")
 @Api(tags = "Events" , value = "Web service RESTful - Events")
@@ -26,12 +24,12 @@ public class EventController {
 
     private final ICustomersService customersService;
     private final IEventsService eventsService;
-    private final ITicketsService ticketsService;
+    //private final ITicketsService ticketsService;
 
-    public EventController(ICustomersService customersService, IEventsService eventsService, ITicketsService ticketsService) {
+    public EventController(ICustomersService customersService, IEventsService eventsService) {
         this.customersService = customersService;
         this.eventsService = eventsService;
-        this.ticketsService = ticketsService;
+       // this.ticketsService = ticketsService;
     }
 
 
