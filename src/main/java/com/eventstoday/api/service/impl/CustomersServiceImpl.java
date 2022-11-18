@@ -47,7 +47,7 @@ public class CustomersServiceImpl implements ICustomersService {
     }
 
     @Override
-    public Customer findByName(String name) throws Exception {
+    public List<Customer> findByName(String name) throws Exception {
         return customerRepository.findByName(name);
     }
 }
