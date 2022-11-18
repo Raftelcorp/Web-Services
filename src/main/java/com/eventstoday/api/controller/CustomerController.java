@@ -19,7 +19,7 @@ import java.beans.FeatureDescriptor;
 import java.util.List;
 import java.util.Optional;
 
-
+@CrossOrigin
 @RestController
 @RequestMapping("/api/customers")
 @Api(tags = "Customers" , value = "Web service RESTful - Customers")
