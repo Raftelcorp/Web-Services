@@ -13,6 +13,7 @@ import com.eventstoday.api.security.service.UserService;
 import com.eventstoday.api.util.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -25,6 +26,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 @RestController
@@ -48,7 +51,7 @@ public class AuthController {
         if(bindingResult.hasErrors())
             return new ResponseEntity(new Message("Invalid Credentials or Email Invalid"), HttpStatus.BAD_REQUEST);
         if(userService.existsByUserName(newUser.getUserName()))
-            return new ResponseEntity(new Message("This userName exists"), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity(new Message("This username exists"), HttpStatus.BAD_REQUEST);
         if(userService.existsByEmail(newUser.getEmail()))
             return new ResponseEntity(new Message("This email exists"), HttpStatus.BAD_REQUEST);
 
@@ -78,4 +81,23 @@ public class AuthController {
         JwtDTO jwtDTO = new JwtDTO(jwt, userDetails.getUsername(), userDetails.getAuthorities());
         return new ResponseEntity(jwtDTO, HttpStatus.OK);
     }
+
+
+    @GetMapping(value ="/get/{username}" , produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<User> getUserByUsername(@PathVariable("username") String username){
+        try{
+            Optional<User> customer = userService.findByUserName(username);
+            if(customer==null){
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+            System.out.println(customer);
+            return new ResponseEntity<>(customer.get(), HttpStatus.OK);
+        }catch (Exception ex){
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+    }
+
+
+
 }

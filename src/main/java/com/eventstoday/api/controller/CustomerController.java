@@ -16,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.security.PermitAll;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,14 +27,7 @@ import java.util.Optional;
 public class CustomerController {
 
     private final ICustomersService customersService;
-   // private final IEventsService eventsService;
-   // private final ITicketsService ticketsService;
 
-  //  public CustomerController(ICustomersService customersService, IEventsService eventsService, ITicketsService ticketsService) {
-        //  this.eventsService = eventsService;
-      //  this.customersService = customersService;
-       // this.ticketsService = ticketsService;
-  //  }
     public CustomerController(ICustomersService customersService) {
 
         this.customersService = customersService;
@@ -73,9 +67,18 @@ public class CustomerController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/searchByEmail/{email}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Customer> findByDni(@PathVariable("email") String email){
+        try{
+            Customer customer = customersService.findByEmail(email);
+            if(customer==null)
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(customer, HttpStatus.OK);
+        }catch (Exception ex){
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+    @PostMapping( consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Customer> insertCustomer( @RequestBody Customer customer){
         try{
                 System.out.println("Insert");
@@ -86,7 +89,6 @@ public class CustomerController {
         }
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PatchMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Customer> updateCustomer(@PathVariable("id") Long id, @RequestBody Customer customer){
         try{

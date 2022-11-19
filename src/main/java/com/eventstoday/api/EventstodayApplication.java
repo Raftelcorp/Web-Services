@@ -15,12 +15,15 @@ public class EventstodayApplication {
     }
 
     @Bean
-    public WebMvcConfigurer corsConfigurer() {
-        return new WebMvcConfigurer() {
-            @Override
-            public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/**").allowedOrigins(CorsConfiguration.ALL).allowedMethods(CorsConfiguration.ALL).allowedHeaders(CorsConfiguration.ALL);
-            }
-        };
-    }
+   public WebMvcConfigurer corsConfigurer() {return new WebMvcConfigurer() {
+           @Override
+          public void addCorsMappings(CorsRegistry registry) {
+    registry.addMapping("/**").allowedOrigins(CorsConfiguration.ALL).allowedMethods(CorsConfiguration.ALL).allowedHeaders(CorsConfiguration.ALL);
+}
+    };
+   }
+
+
+
+
 }

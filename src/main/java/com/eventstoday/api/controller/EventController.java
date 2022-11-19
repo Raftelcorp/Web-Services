@@ -35,7 +35,6 @@ public class EventController {
        // this.ticketsService = ticketsService;
     }
 
-
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "List Events", notes = "Method for listing all events")
     @ApiResponses({
@@ -58,7 +57,7 @@ public class EventController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
+    @PreAuthorize("hasRole('ROLE_USER')")
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Event>findEventById(@PathVariable("id") Long id) {
         try{
