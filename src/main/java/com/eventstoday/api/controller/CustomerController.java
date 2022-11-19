@@ -1,6 +1,8 @@
 package com.eventstoday.api.controller;
 
 import com.eventstoday.api.entities.Customer;
+import com.eventstoday.api.entities.Event;
+import com.eventstoday.api.entities.Ticket;
 import com.eventstoday.api.service.ICustomersService;
 import com.eventstoday.api.service.IEventsService;
 import com.eventstoday.api.service.ITicketsService;
@@ -104,8 +106,32 @@ public class CustomerController {
         }catch (Exception ex){
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
 
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @DeleteMapping(value = "/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Delete customer by id",notes = "method for delete customer")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "customer delete"),
+            @ApiResponse(code=404, message = "customer Not Found"),
+            @ApiResponse(code= 501, message = "Internal Server Error")
+    })
+    public ResponseEntity<Customer> deleteCustomer(@PathVariable("id") Long customerId){
+        System.out.println("Try");
+        try{
+            Optional<Customer> customerDelete=customersService.getById(customerId);
+            if(customerDelete.isPresent()){
+                System.out.println("Delete ticket");
+                customersService.delete(customerId);
+                return new ResponseEntity<>(HttpStatus.OK);
+            }
+            else{
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+        }catch (Exception ex){
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
 
