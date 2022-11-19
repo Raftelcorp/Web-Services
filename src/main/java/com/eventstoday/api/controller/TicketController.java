@@ -14,11 +14,12 @@ import io.swagger.annotations.ApiResponses;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
-
+@CrossOrigin
 @RestController
 @RequestMapping("/api/tickets")
 @Api(tags = "Tickets" , value = "Web service RESTful - Tickets")
@@ -99,7 +100,7 @@ public class TicketController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping(value = "/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Delete ticket by id",notes = "method for delete ticket")
     @ApiResponses({
