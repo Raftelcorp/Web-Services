@@ -1,6 +1,7 @@
 package com.eventstoday.api.security.controller;
 
 
+import com.eventstoday.api.entities.Customer;
 import com.eventstoday.api.security.dto.JwtDTO;
 import com.eventstoday.api.security.dto.LoginUser;
 import com.eventstoday.api.security.dto.NewUser;
@@ -97,6 +98,27 @@ public class AuthController {
         }
 
     }
+
+    @PatchMapping(value = "/{email}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Customer> updateCustomer(@PathVariable("email") String email, @RequestBody User user){
+        System.out.println("Test");
+        try{
+            Optional<User> newUser = userService.findByEmail(email);
+            if(!newUser.isPresent())
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
+          if (user.getName() != null) newUser.get().setName(user.getName());
+          if (user.getEmail() != null) newUser.get().setEmail(user.getEmail());
+          if (user.getPassword() != null) newUser.get().setPassword(user.getPassword());
+
+            System.out.println(newUser.get());
+            userService.save(newUser.get());
+            return new ResponseEntity<>(HttpStatus.OK);
+        }catch (Exception ex){
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 
 
 

@@ -90,6 +90,7 @@ public class EventController {
         }
     }
 
+
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping(value = "/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Delete Event by id",notes = "method for delete Event")
