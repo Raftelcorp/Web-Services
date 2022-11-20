@@ -23,7 +23,7 @@ public class Event implements Serializable {
     private String title;
     @Column(name="author", nullable = true, length = 50)
     private String author;
-    @Column(name="description", nullable = true, length = 50)
+    @Column(name="description", nullable = true, length = 2000)
     private String description;
     @Column(name="price", nullable = true)
     private String  price;
@@ -33,7 +33,7 @@ public class Event implements Serializable {
     @Column(name="end_date", nullable = false)
     @Temporal(TemporalType.DATE)
     private Date endDate;
-    @Column(name="url_Img", nullable = true, length = 50)
+    @Column(name="url_Img", nullable = true, length = 2000)
     private String urlImg;
 
    @ManyToOne(fetch = FetchType.LAZY)
