@@ -122,7 +122,7 @@ public class AuthController {
         }
     }
 
-    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/roles",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Role>>findAllRoles(){
 
         try{
@@ -138,7 +138,7 @@ public class AuthController {
     }
 
 
-    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/users",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<User>>findAllUsers(){
 
         try{
