@@ -12,6 +12,9 @@ import com.eventstoday.api.security.jwt.JwtProvider;
 import com.eventstoday.api.security.service.RoleService;
 import com.eventstoday.api.security.service.UserService;
 import com.eventstoday.api.util.Message;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -115,6 +118,37 @@ public class AuthController {
             userService.save(newUser.get());
             return new ResponseEntity<>(HttpStatus.OK);
         }catch (Exception ex){
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<Role>>findAllRoles(){
+
+        try{
+            List<Role> roles = roleService.getAll();
+            if(roles.size()>0)
+                return new ResponseEntity<>(roles, HttpStatus.OK);
+            else
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }catch (Exception e){
+
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<User>>findAllUsers(){
+
+        try{
+            List<User> users = userService.getAll();
+            if(users.size()>0)
+                return new ResponseEntity<>(users, HttpStatus.OK);
+            else
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }catch (Exception e){
+
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
