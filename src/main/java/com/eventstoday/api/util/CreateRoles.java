@@ -17,9 +17,9 @@ public class CreateRoles implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception{
         //SOLO DEBEMOS EJECUTARLO UNA SOLA VEZ
-        Role roleAdmin = new Role(RoleName.ROLE_ADMIN);
+       /* Role roleAdmin = new Role(RoleName.ROLE_ADMIN);
         Role roleUser = new Role(RoleName.ROLE_USER);
         roleService.save(roleAdmin);
-        roleService.save(roleUser);
+        roleService.save(roleUser); */
     }
 }
