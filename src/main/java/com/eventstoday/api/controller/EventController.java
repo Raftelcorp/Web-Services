@@ -88,4 +88,16 @@ public class EventController {
         }
     }
 
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Event> insertEvent2(  @RequestBody Event event){
+        try{
+
+                Event newEvent = eventsService.save(event);
+                return ResponseEntity.status(HttpStatus.CREATED).body(newEvent);
+
+        }catch (Exception ex){
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 }
